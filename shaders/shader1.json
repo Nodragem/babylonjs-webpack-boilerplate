@@ -1,0 +1,16 @@
+{
+    "refName": "shader1",
+    "path": "./shader1",
+    "options": {
+        "attritubes": ["position", "normal", "uv"],
+        "uniforms": ["world", "worldView", "worldViewProjection", "view", "projection"],
+    },
+    "textures": [
+        {
+            "refName": "refSampler",
+            "path": "assets/2D/ref.jpg",
+            "wrapU": "BABYLON.Texture.CLAMP_ADDRESSMODE",
+            "wrapV": "BABYLON.Texture.CLAMP_ADDRESSMODE"
+        }
+    ]
+}

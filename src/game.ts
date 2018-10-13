@@ -1,5 +1,6 @@
 import * as BABYLON from 'babylonjs';
 import '../assets/2D/dungeons_and_flagons3.jpg';
+import { ShaderHelper } from './ShaderHelper';
 
 class Game {
     private _canvas: HTMLCanvasElement;
@@ -59,9 +60,7 @@ class Game {
         let sphere = BABYLON.MeshBuilder.CreateSphere('sphere1',
                                 {segments: 16, diameter: 2}, this._scene);
 
-        let material = new BABYLON.StandardMaterial("sphere_material", this._scene);
-        material.diffuseColor = new BABYLON.Color3(1, 0.5, 0.5);
-        sphere.material = material;
+        ShaderHelper.applyShaderMaterial("./shader2.json", sphere);
 
         // Move the sphere upward 1/2 of its height.
         sphere.position.y = 1;
@@ -74,7 +73,7 @@ class Game {
                                 {width: 6, height: 6, subdivisions: 2}, this._scene);
         
         // the path to the texture corresponds to the path after you build your project (npm run build)
-        material = new BABYLON.StandardMaterial("ground1_material", this._scene);
+        let material = new BABYLON.StandardMaterial("ground1_material", this._scene);
         material.diffuseTexture = new BABYLON.Texture("assets/2D/dungeons_and_flagons3.jpg", this._scene);
         this._ground.material = material;
     }
