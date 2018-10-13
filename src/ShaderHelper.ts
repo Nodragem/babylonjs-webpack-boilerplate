@@ -4,12 +4,19 @@ interface TextureDefinition {
     wrapU:string,
     wrapV:string
 }
+interface Vector3LinkDefinition {
+    refName:string,
+    nodeName:string,
+    nodeProperty:string,
+}
+
 interface ShaderDefiniton {
     refName:string,
     path:string,
     attributes:string[],
     uniforms:string[],
-    textures: TextureDefinition[]
+    textures?: TextureDefinition[],
+    nodeLinks?: Vector3LinkDefinition[]
 }
 
 // FIXME: Ideally we would like to use this interface, to account for all shader options:
@@ -53,11 +60,35 @@ export class ShaderHelper {
                     refTexture.wrapV = BABYLON.Texture.CLAMP_ADDRESSMODE;
                     shaderMaterial.setTexture(textDef.refName, refTexture);                                      
                 });
-            }            
+            } 
+
+            if(shaderDef.nodeLinks !== undefined){
+                // Nodes are Camera, Mesh, Light, TransformNode
+                let nodeProperty:BABYLON.Vector3;
+                shaderDef.nodeLinks.forEach((nodeLink:Vector3LinkDefinition) => {
+                    let node = mesh.getScene().getNodeByName(nodeLink.nodeName);
+                    if(node){
+                        if(nodeLink.nodeProperty == 'rotation')
+                            nodeProperty = node.rotation
+                        if (nodeLink.nodeProperty == 'position')
+                            nodeProperty = node.position;
+                    }
+                    // NOTE: I checked, the node property is automatically updated before render!
+                    // Hence no need to use registerBeforeRender() as in demo;
+                    shaderMaterial.setVector3(nodeLink.refName, nodeProperty);                                      
+                });
+            } 
+                      
             mesh.material = shaderMaterial;
-            //NOTE: can't use return(shaderMaterial) because async
-            
+            //NOTE: can't use return(shaderMaterial) because async        
         });
         
     }
 }
+
+// In case we need to register Before Render:
+// if(nodeLink.update){
+//     mesh.getScene().registerBeforeRender(()=>{
+//         shaderMaterial.setVector3(nodeLink.refName, nodeProperty);
+//     });
+// }

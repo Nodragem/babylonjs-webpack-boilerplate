@@ -45,7 +45,7 @@ class Game {
         this._scene = new BABYLON.Scene(this._engine);
     
         // Create a FreeCamera, and set its position to (x:0, y:5, z:-10).
-        this._camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-10), this._scene);
+        this._camera = new BABYLON.FreeCamera('mainCamera', new BABYLON.Vector3(0, 5,-10), this._scene);
         
         // Target the camera to scene origin.
         this._camera.setTarget(BABYLON.Vector3.Zero());

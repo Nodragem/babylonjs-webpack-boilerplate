@@ -1,14 +1,21 @@
 {
-    "refName": "shader1",
-    "path": "./shader1",
-    "attritubes": ["position", "normal", "uv"],
-    "uniforms": ["world", "worldView", "worldViewProjection", "view", "projection"],
+    "refName": "shader2",
+    "path": "./shader2",
+    "attritubes": ["position", "normal"],
+    "uniforms": ["world", "worldViewProjection"],
     "textures": [
         {
-            "refName": "refSampler",
+            "refName": "textureSampler",
             "path": "assets/2D/ref.jpg",
             "wrapU": "BABYLON.Texture.CLAMP_ADDRESSMODE",
             "wrapV": "BABYLON.Texture.CLAMP_ADDRESSMODE"
+        }
+    ],
+    "nodeLinks": [
+        {
+            "refName": "cameraPosition",
+            "nodeName": "mainCamera",
+            "nodeProperty": "position"
         }
     ]
 }

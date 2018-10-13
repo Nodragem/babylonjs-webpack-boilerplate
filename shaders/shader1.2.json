@@ -1,8 +1,10 @@
 {
     "refName": "shader1",
     "path": "./shader1",
-    "attritubes": ["position", "normal", "uv"],
-    "uniforms": ["world", "worldView", "worldViewProjection", "view", "projection"],
+    "options": {
+        "attritubes": ["position", "normal", "uv"],
+        "uniforms": ["world", "worldView", "worldViewProjection", "view", "projection"],
+    },
     "textures": [
         {
             "refName": "refSampler",
